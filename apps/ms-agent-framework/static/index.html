@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trip Briefing Agent — Microsoft Agent Framework demo</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel2: #1c2330;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --amber: #d29922;
+    --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 70% -10%, #13233d 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .wrap { width: 100%; max-width: 760px; }
+  header { margin-bottom: 28px; }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+  .sub { color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .mode {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 4px 12px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 999px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  .mode .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  form {
+    display: flex; gap: 10px; margin: 24px 0 10px;
+  }
+  input {
+    flex: 1; padding: 13px 16px; font-size: 16px;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; outline: none;
+  }
+  input:focus { border-color: var(--accent); }
+  button {
+    padding: 13px 22px; font-size: 15px; font-weight: 600;
+    background: var(--accent); color: #06131f;
+    border: none; border-radius: 10px; cursor: pointer;
+  }
+  button:disabled { opacity: .55; cursor: wait; }
+  .examples { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+  .examples a { color: var(--accent); cursor: pointer; text-decoration: none; margin-right: 10px; }
+  .step {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 12px;
+    animation: rise .25s ease both;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+  .badge {
+    display: inline-block; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .05em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 999px; margin-bottom: 8px;
+  }
+  .b-user   { background: #1f6feb33; color: var(--accent); }
+  .b-call   { background: #d2992233; color: var(--amber); }
+  .b-result { background: #3fb95033; color: var(--green); }
+  .b-final  { background: #bc8cff33; color: var(--purple); }
+  .step pre {
+    background: var(--panel2); border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; overflow-x: auto; margin-top: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #c9d1d9;
+  }
+  .step .name { font-weight: 600; font-size: 14.5px; }
+  .step.final { border-color: #bc8cff66; background: linear-gradient(180deg, #bc8cff14, var(--panel)); }
+  .step.final p { font-size: 16px; line-height: 1.6; margin-top: 4px; }
+  .spinner { color: var(--muted); font-size: 14px; padding: 8px 2px; }
+  .error { color: #f85149; font-size: 14px; padding: 8px 2px; }
+  footer { margin-top: 34px; color: var(--muted); font-size: 12.5px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Microsoft Agent Framework · demo</div>
+    <h1>Trip Briefing Agent</h1>
+    <p class="sub">
+      Type a city. The agent plans two tool calls — <b>get_weather</b> and
+      <b>get_local_time</b> (live Open-Meteo data) — the framework executes them,
+      and the agent composes a briefing. Every step of the agent loop is shown below.
+    </p>
+    <span class="mode"><span class="dot"></span>model client: <b id="mode">…</b></span>
+  </header>
+
+  <form id="form">
+    <input id="city" type="text" placeholder="e.g. Kyoto" autocomplete="off" autofocus />
+    <button id="run" type="submit">Run agent</button>
+  </form>
+  <div class="examples">
+    Try:
+    <a data-c="Kyoto">Kyoto</a>
+    <a data-c="Reykjavik">Reykjavik</a>
+    <a data-c="Cape Town">Cape Town</a>
+    <a data-c="Lisbon">Lisbon</a>
+  </div>
+
+  <div id="out"></div>
+
+  <footer>
+    Built on <a href="https://github.com/microsoft/agent-framework" target="_blank">microsoft/agent-framework</a>
+    (Python SDK) · weather &amp; time via Open-Meteo · no API key required in offline mode
+  </footer>
+</div>
+
+<script>
+const out = document.getElementById("out");
+const form = document.getElementById("form");
+const cityInput = document.getElementById("city");
+const runBtn = document.getElementById("run");
+
+fetch("/api/health").then(r => r.json()).then(d => {
+  document.getElementById("mode").textContent = d.mode;
+});
+
+document.querySelectorAll(".examples a").forEach(a => {
+  a.onclick = () => { cityInput.value = a.dataset.c; form.requestSubmit(); };
+});
+
+const BADGES = {
+  user:        ["b-user", "You"],
+  tool_call:   ["b-call", "Agent → tool call"],
+  tool_result: ["b-result", "Tool result"],
+  final:       ["b-final", "Agent · final answer"],
+};
+
+function pretty(v) {
+  if (typeof v === "string") { try { v = JSON.parse(v); } catch { return v; } }
+  return JSON.stringify(v, null, 2);
+}
+
+function render(steps) {
+  out.innerHTML = "";
+  for (const s of steps) {
+    const div = document.createElement("div");
+    div.className = "step" + (s.kind === "final" ? " final" : "");
+    const [cls, label] = BADGES[s.kind];
+    let body = "";
+    if (s.kind === "user") {
+      body = `<div class="name">Trip briefing for: ${escapeHtml(s.text)}</div>`;
+    } else if (s.kind === "tool_call") {
+      body = `<div class="name">${escapeHtml(s.name)}</div><pre>${escapeHtml(pretty(s.arguments))}</pre>`;
+    } else if (s.kind === "tool_result") {
+      body = `<div class="name">${escapeHtml(s.name)}</div><pre>${escapeHtml(pretty(s.result))}</pre>`;
+    } else {
+      body = `<p>${escapeHtml(s.text)}</p>`;
+    }
+    div.innerHTML = `<span class="badge ${cls}">${label}</span>${body}`;
+    out.appendChild(div);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
+}
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  const city = cityInput.value.trim();
+  if (!city) return;
+  runBtn.disabled = true;
+  out.innerHTML = `<div class="spinner">Running agent for “${escapeHtml(city)}”…</div>`;
+  try {
+    const resp = await fetch("/api/briefing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ city }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.detail || resp.statusText);
+    render(data.steps);
+  } catch (err) {
+    out.innerHTML = `<div class="error">Agent run failed: ${escapeHtml(err.message)}</div>`;
+  } finally {
+    runBtn.disabled = false;
+  }
+};
+</script>
+</body>
+</html>
