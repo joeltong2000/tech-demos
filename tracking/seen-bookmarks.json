@@ -1,0 +1,12 @@
+{
+  "seen": [
+    {
+      "id": "microsoft-agent-framework",
+      "title": "Microsoft Agent Framework",
+      "url": "https://github.com/microsoft/agent-framework",
+      "app": "apps/ms-agent-framework",
+      "date": "2026-09-29",
+      "notes": "Trip Briefing Agent demo: multi-step tool-calling agent (Python SDK) with a web UI showing the full agent trace."
+    }
+  ]
+}
