@@ -7,6 +7,14 @@
       "app": "apps/ms-agent-framework",
       "date": "2026-09-29",
       "notes": "Trip Briefing Agent demo: multi-step tool-calling agent (Python SDK) with a web UI showing the full agent trace."
+    },
+    {
+      "id": "oracle-mcp-jde-orchestrator",
+      "title": "Oracle MCP server for JDE Orchestrator (AIS-native)",
+      "url": "https://www.linkedin.com/posts/barizon_jdedwards-innova9-jdedwards-activity-7507881685003161601-OhnO",
+      "app": "apps/oracle-mcp-jde-orchestrator",
+      "date": "2026-09-30",
+      "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
     }
   ]
 }

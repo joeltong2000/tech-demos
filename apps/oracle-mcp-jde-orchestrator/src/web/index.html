@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Oracle MCP × JDE Orchestrator</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #151b24; --panel2: #1b2330; --line: #2a3546;
+    --text: #e6edf3; --dim: #8b98a9; --accent: #f0512e; --accent2: #ff8a65;
+    --ok: #3fb950; --err: #f85149; --blue: #58a6ff; --gold: #d4a017;
+    font-size: 15px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  }
+  code, pre, .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+  header {
+    display: flex; align-items: center; gap: 14px; padding: 14px 22px;
+    border-bottom: 1px solid var(--line); background: var(--panel);
+  }
+  .logo {
+    width: 34px; height: 34px; border-radius: 8px; flex: none;
+    background: linear-gradient(135deg, var(--accent), #a3341c);
+    display: grid; place-items: center; font-weight: 800; font-size: 15px; color: #fff;
+  }
+  header h1 { font-size: 1.05rem; margin: 0; font-weight: 650; }
+  header .sub { color: var(--dim); font-size: .8rem; margin-top: 2px; }
+  .spacer { flex: 1; }
+  .badge {
+    font-size: .74rem; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--dim); white-space: nowrap;
+  }
+  .badge.mode { border-color: rgba(212,160,23,.5); color: var(--gold); }
+  .badge.mode.real { border-color: rgba(63,185,80,.5); color: var(--ok); }
+
+  main {
+    display: grid; grid-template-columns: 300px 1fr 430px; gap: 16px;
+    padding: 16px 22px; height: calc(100vh - 63px); overflow: hidden;
+  }
+  section {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  section > h2 {
+    font-size: .72rem; letter-spacing: .09em; text-transform: uppercase; color: var(--dim);
+    margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line); font-weight: 600;
+  }
+  .scroll { overflow-y: auto; flex: 1; min-height: 0; }
+
+  .tool {
+    padding: 12px 16px; border-bottom: 1px solid var(--line); cursor: pointer;
+  }
+  .tool:hover { background: var(--panel2); }
+  .tool.active { background: var(--panel2); box-shadow: inset 3px 0 0 var(--accent); }
+  .tool .name { font-weight: 600; font-size: .88rem; color: var(--accent2); }
+  .tool .desc { color: var(--dim); font-size: .76rem; margin-top: 4px; line-height: 1.35; }
+
+  .invoke { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .invoke .tdesc { color: var(--dim); font-size: .82rem; line-height: 1.45; margin: 0; }
+  label { display: block; font-size: .76rem; color: var(--dim); margin-bottom: 4px; }
+  label .req { color: var(--accent); }
+  input {
+    width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+    color: var(--text); padding: 8px 10px; font-size: .86rem;
+  }
+  input:focus { outline: none; border-color: var(--accent); }
+  button {
+    align-self: flex-start; background: var(--accent); color: #fff; border: 0;
+    padding: 9px 20px; border-radius: 8px; font-weight: 650; font-size: .86rem; cursor: pointer;
+  }
+  button:hover { background: #ff6240; }
+  button:disabled { opacity: .5; cursor: wait; }
+
+  .result { margin: 0 16px 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .result .status { font-size: .76rem; font-weight: 650; margin-bottom: 8px; }
+  .result .status.ok { color: var(--ok); }
+  .result .status.err { color: var(--err); }
+  pre {
+    margin: 0; background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px; font-size: .74rem; line-height: 1.45; overflow: auto; white-space: pre-wrap;
+  }
+
+  .entry { padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .entry .meta { display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .dir { font-size: .7rem; font-weight: 700; }
+  .dir.out { color: var(--blue); }
+  .dir.in { color: var(--ok); }
+  .method { font-size: .76rem; color: var(--accent2); font-weight: 600; }
+  .ts { font-size: .68rem; color: var(--dim); margin-left: auto; }
+  .entry pre { font-size: .68rem; max-height: 220px; }
+  .empty { color: var(--dim); font-size: .82rem; padding: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">JD</div>
+  <div>
+    <h1>Oracle MCP × JDE Orchestrator</h1>
+    <div class="sub">AIS-native MCP server — orchestrations exposed as agent tools</div>
+  </div>
+  <div class="spacer"></div>
+  <span class="badge" id="server-badge">connecting…</span>
+  <span class="badge mode" id="mode-badge">…</span>
+</header>
+
+<main>
+  <section>
+    <h2>MCP tools <span id="tool-count"></span></h2>
+    <div class="scroll" id="tool-list"><div class="empty">Loading tool surface…</div></div>
+  </section>
+
+  <section>
+    <h2>Invoke orchestration</h2>
+    <div class="scroll">
+      <div class="invoke" id="invoke-panel"><div class="empty">Select a tool on the left.</div></div>
+      <div class="result" id="result-panel" hidden>
+        <div class="status" id="result-status"></div>
+        <pre id="result-body"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>MCP JSON-RPC traffic</h2>
+    <div class="scroll" id="traffic"><div class="empty">No traffic yet.</div></div>
+  </section>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  let tools = [];
+  let selected = null;
+
+  function renderTools() {
+    const list = $("tool-list");
+    list.innerHTML = "";
+    $("tool-count").textContent = "(" + tools.length + ")";
+    for (const tool of tools) {
+      const div = document.createElement("div");
+      div.className = "tool" + (selected === tool.name ? " active" : "");
+      const name = document.createElement("div");
+      name.className = "name mono";
+      name.textContent = tool.name;
+      const desc = document.createElement("div");
+      desc.className = "desc";
+      desc.textContent = tool.description || "";
+      div.append(name, desc);
+      div.onclick = () => { selected = tool.name; renderTools(); renderInvoke(); };
+      list.appendChild(div);
+    }
+  }
+
+  function renderInvoke() {
+    const panel = $("invoke-panel");
+    $("result-panel").hidden = true;
+    panel.innerHTML = "";
+    const tool = tools.find((t) => t.name === selected);
+    if (!tool) { panel.innerHTML = '<div class="empty">Select a tool on the left.</div>'; return; }
+
+    const desc = document.createElement("p");
+    desc.className = "tdesc";
+    desc.textContent = tool.description || "";
+    panel.appendChild(desc);
+
+    const props = (tool.inputSchema && tool.inputSchema.properties) || {};
+    const required = new Set((tool.inputSchema && tool.inputSchema.required) || []);
+    const fields = [];
+    for (const [key, schema] of Object.entries(props)) {
+      const wrap = document.createElement("div");
+      const label = document.createElement("label");
+      label.innerHTML = "<span class='mono'>" + key + "</span>" +
+        (required.has(key) ? " <span class='req'>*</span>" : "") +
+        (schema.description ? " — " + schema.description : "");
+      const input = document.createElement("input");
+      input.placeholder = schema.type === "number" ? "number" : "text";
+      wrap.append(label, input);
+      panel.appendChild(wrap);
+      fields.push({ key, input, type: schema.type });
+    }
+
+    const btn = document.createElement("button");
+    btn.textContent = "Invoke via MCP tools/call";
+    btn.onclick = async () => {
+      const args = {};
+      for (const f of fields) {
+        const v = f.input.value.trim();
+        if (v === "") continue;
+        args[f.key] = f.type === "number" ? Number(v) : v;
+      }
+      btn.disabled = true;
+      try {
+        const res = await fetch("/api/call", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tool: tool.name, args }),
+        });
+        const body = await res.json();
+        showResult(body);
+        renderTraffic(body.traffic || []);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+    panel.appendChild(btn);
+  }
+
+  function showResult(body) {
+    const panel = $("result-panel");
+    const status = $("result-status");
+    const pre = $("result-body");
+    panel.hidden = false;
+    if (body.error) {
+      status.textContent = "✗ transport error";
+      status.className = "status err";
+      pre.textContent = body.error;
+      return;
+    }
+    const isError = !!(body.result && body.result.isError);
+    status.textContent = isError
+      ? "✗ orchestration exception (isError: true)"
+      : "✓ orchestration output (from tools/call result)";
+    status.className = "status " + (isError ? "err" : "ok");
+    const texts = ((body.result && body.result.content) || [])
+      .filter((c) => c.type === "text").map((c) => c.text);
+    let out = texts.join("\n");
+    try { out = JSON.stringify(JSON.parse(out), null, 2); } catch {}
+    pre.textContent = out || JSON.stringify(body.result, null, 2);
+  }
+
+  function renderTraffic(entries) {
+    const box = $("traffic");
+    box.innerHTML = "";
+    if (!entries.length) { box.innerHTML = '<div class="empty">No traffic yet.</div>'; return; }
+    for (const e of [...entries].reverse()) {
+      const div = document.createElement("div");
+      div.className = "entry";
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      const dir = document.createElement("span");
+      dir.className = "dir " + (e.direction === "client->server" ? "out" : "in");
+      dir.textContent = e.direction === "client->server" ? "→ client → server" : "← server → client";
+      const method = document.createElement("span");
+      method.className = "method mono";
+      method.textContent = e.message.method || (e.message.error ? "error" : "result") +
+        (e.message.id !== undefined ? " #" + e.message.id : "");
+      const ts = document.createElement("span");
+      ts.className = "ts mono";
+      ts.textContent = new Date(e.at).toLocaleTimeString();
+      meta.append(dir, method, ts);
+      const pre = document.createElement("pre");
+      pre.textContent = JSON.stringify(e.message, null, 2);
+      div.append(meta, pre);
+      box.appendChild(div);
+    }
+  }
+
+  async function boot() {
+    const res = await fetch("/api/state");
+    const state = await res.json();
+    const info = state.serverInfo || {};
+    $("server-badge").textContent = "MCP: " + (info.name || "?") + " v" + (info.version || "?");
+    const modeBadge = $("mode-badge");
+    modeBadge.textContent = state.ais.label;
+    if (state.ais.mode === "real") modeBadge.classList.add("real");
+    tools = (state.tools && state.tools.tools) || [];
+    selected = tools.length ? tools[0].name : null;
+    renderTools();
+    renderInvoke();
+    renderTraffic(state.traffic || []);
+  }
+  boot();
+</script>
+</body>
+</html>
