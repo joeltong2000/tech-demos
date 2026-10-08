@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "psai-openai-decisions",
+      "title": "PSAIOpenAIDecisions (dfinke) - PowerShell client for the OpenAI Decisions API",
+      "url": "https://agihunt.info/en/p/1a113f78ef4b4846f2149caf58f",
+      "app": "apps/psai-openai-decisions",
+      "date": "2026-10-08",
+      "notes": "Ticket-triage pipeline piping 8 support tickets through yes/no (Select-OpenAIDecision), multiple-choice routing (Get-OpenAIDecisionChoice), and urgency scoring (Get-OpenAIDecisionScore) using the real PSGallery module; offline-first Bun mock of POST /v1/decisions with deterministic keyword-concept heuristics."
     }
   ]
 }
