@@ -8,6 +8,8 @@ Demo of [PSAIOpenAIDecisions](https://github.com/dfinke/PSAIOpenAIDecisions), Do
 
 The run ends with a triage board sorted by urgency. The real, unmodified module from PowerShell Gallery is used; only the endpoint is redirected.
 
+**HOW-TO video:** [`docs/tutorial.mp4`](docs/tutorial.mp4) — a ~2.5 minute captioned walkthrough covering prerequisites, running the demo, the three pipeline commands in the script, a custom one-liner against the mock, and how to switch to real mode.
+
 ## Run it (mock mode, no credentials)
 
 Prerequisites: [Bun](https://bun.sh) and [PowerShell 7+](https://learn.microsoft.com/powershell/scripting/install/installing-powershell) (`pwsh`).
