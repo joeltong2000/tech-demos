@@ -1,0 +1,9 @@
+Id,From,Subject,Body
+T-1001,ops@contoso.example,Production API returning 500 errors,Our production integration is down and every request fails with a 500 error. The whole team is blocked and our launch is today. Please escalate immediately.
+T-1002,maria@fabrikam.example,Charged twice this month,I was billed twice for the same invoice in October. Please refund the duplicate charge to my payment card.
+T-1003,dev@tailspin.example,CSV export times out,The CSV export fails with a timeout error every time I run it on a large project. Not blocking us yet but it is clearly a bug.
+T-1004,sam@litware.example,Locked out of my account,I am locked out after a password reset and the reset email never arrives. I cannot sign in at all and I am blocked from today's demo. Urgent.
+T-1005,casey@proseware.example,Dark mode suggestion,Just a small suggestion: a dark mode theme would be nice someday. No rush at all and definitely a minor cosmetic idea.
+T-1006,finance@adatum.example,Renewal payment failed - team blocked,Our renewal payment failed and now the subscription is suspended. The whole team is blocked and we need this fixed today.
+T-1007,jo@northwind.example,How do I change my username?,I am curious how to change the username on my account. Just a question whenever you get a chance.
+T-1008,alex@wingtip.example,Cracked screen on arrival - refund please,The package arrived with a cracked screen. The unit is damaged and defective so I would like a refund on my payment.

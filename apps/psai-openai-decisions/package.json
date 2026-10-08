@@ -1,0 +1,13 @@
+{
+  "name": "psai-openai-decisions-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "bun run scripts/run-demo.ts",
+    "mock": "bun run mock/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.0"
+  }
+}
