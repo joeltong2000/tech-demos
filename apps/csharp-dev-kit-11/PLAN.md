@@ -23,24 +23,24 @@ VS Code with the pre-release extension and watch the Solution Explorer populate.
 ## 3. Steps
 
 1. [x] Commit this plan.
-2. [ ] Install .NET 10 SDK on the VM.
-3. [ ] Scaffold the `ParcelTrack` solution: 3 class libraries (`Domain`, `Application`,
+2. [x] Install .NET 10 SDK on the VM.
+3. [x] Scaffold the `ParcelTrack` solution: 3 class libraries (`Domain`, `Application`,
    `Infrastructure`), 1 ASP.NET Core minimal web API (`Api`), 2 xUnit test projects
    (`Domain.Tests`, `Api.Tests`) — 6 projects wired with project references.
-4. [ ] Verify `dotnet build` succeeds and `dotnet test` is green.
-5. [ ] Write `README.md`: what 11.0 changes, how to install the pre-release, how to open the
+4. [x] Verify `dotnet build` succeeds and `dotnet test` is green (16/16 pass).
+5. [x] Write `README.md`: what 11.0 changes, how to install the pre-release, how to open the
    solution, what to look for.
-6. [ ] Install VS Code on the VM; install C# Dev Kit **release** and **pre-release** into two
-   isolated profiles (separate `--user-data-dir`/`--extensions-dir`) for a fair comparison.
-7. [ ] Measure on this solution with each profile: time until Solution Explorer/language
-   services are ready, extension process count (`ServiceHub`/`Microsoft.VisualStudio.Code.*`
-   vs single `CSDevKit`), resident memory of those processes. Record results in
-   `MEASUREMENTS.md`. If marketplace/licensing/sign-in blocks a fair side-by-side, document
-   exactly what worked and what did not — no fabricated numbers.
-8. [ ] Capture validation artifacts: screenshot of the solution open in VS Code with the
+6. [x] Install VS Code on the VM; install C# Dev Kit **release** (3.40.210) and
+   **pre-release** (11.3.30) into two isolated profiles (separate
+   `--user-data-dir`/`--extensions-dir`) for a fair comparison.
+7. [x] Measure on this solution with each profile: time until Solution Explorer/language
+   services are ready, extension process count (five `Microsoft.VisualStudio.Code.*`
+   processes vs single native `CSDevKit`), resident memory of those processes. Results in
+   `MEASUREMENTS.md`, including what could not be measured fairly — no fabricated numbers.
+8. [x] Capture validation artifacts: screenshot of the solution open in VS Code with the
    pre-release extension, and a short video of the happy path (build + test + solution load).
-9. [ ] Add the bookmark entry to `tracking/seen-bookmarks.json`.
-10. [ ] Open one PR into `main` with artifacts linked.
+9. [x] Add the bookmark entry to `tracking/seen-bookmarks.json`.
+10. [x] Open one PR into `main` with artifacts linked.
 
 ## 4. Success criteria
 

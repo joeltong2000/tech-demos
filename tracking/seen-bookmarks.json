@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "csharp-dev-kit-11",
+      "title": "A faster, lighter C# Dev Kit (11.0 pre-release)",
+      "url": "https://devblogs.microsoft.com/dotnet/faster-lighter-csharp-dev-kit/",
+      "app": "apps/csharp-dev-kit-11",
+      "date": "2026-10-12",
+      "notes": "6-project .NET 10 solution (ParcelTrack) exercising the rearchitected C# Dev Kit: single Native AOT CSDevKit process + project caches. Measured stable 3.40 vs pre-release 11.x side by side on the VM: warm solution load 6.9s -> 0.52s, 5 server processes -> 1, ~80% less memory."
     }
   ]
 }
