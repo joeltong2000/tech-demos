@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ParcelTrack.Api/ParcelTrack.Api.csproj" />
+    <Project Path="src/ParcelTrack.Application/ParcelTrack.Application.csproj" />
+    <Project Path="src/ParcelTrack.Domain/ParcelTrack.Domain.csproj" />
+    <Project Path="src/ParcelTrack.Infrastructure/ParcelTrack.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ParcelTrack.Api.Tests/ParcelTrack.Api.Tests.csproj" />
+    <Project Path="tests/ParcelTrack.Domain.Tests/ParcelTrack.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
