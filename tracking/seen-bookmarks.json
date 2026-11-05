@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "jde-orchestrator-async-queue-override",
+      "title": "JDE Orchestrator: overriding the AIS job queue per call (fire-and-forget)",
+      "url": "https://docs.oracle.com/en/applications/jd-edwards/cross-product/9.2/eotos/overriding-the-ais-job-queue-and-scope-for-individual-orchestrator-calls.html",
+      "app": "apps/jde-orchestrator-async",
+      "date": "2026-11-05",
+      "notes": "Bun/TS demo calling the same orchestration sync (200 + output after ~4s) and fire-and-forget via jde__jobQueue=JDE__ASYNCH (202 in ms), with side-by-side timings, a mock AIS server honoring the override, a mock Orchestrator Monitor status check, and an optional PowerShell client."
     }
   ]
 }

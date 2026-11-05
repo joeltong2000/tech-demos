@@ -1,0 +1,14 @@
+{
+  "name": "jde-orchestrator-async",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "bun run src/demo.ts",
+    "mock": "bun run src/mock-ais.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.7.0"
+  }
+}
