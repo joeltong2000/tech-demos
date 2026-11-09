@@ -1,0 +1,35 @@
+{
+  "environment": "JPD920 (mock)",
+  "servers": [
+    { "name": "JDEENT01", "type": "Enterprise", "detail": "logic + batch · port 6017" },
+    { "name": "JDEENT02", "type": "Enterprise", "detail": "batch only · port 6017" },
+    { "name": "JDEWEB01", "type": "HTML",       "detail": "JAS · port 8080" },
+    { "name": "JDEWEB02", "type": "HTML",       "detail": "JAS · port 8080" },
+    { "name": "JDEAIS01", "type": "AIS",        "detail": "REST · port 9300" },
+    { "name": "JDEDB01",  "type": "Database",   "detail": "Oracle 19c · port 1521" }
+  ],
+  "queues": [
+    { "name": "QBATCH", "maxJobs": 2 },
+    { "name": "QPRINT", "maxJobs": 1 }
+  ],
+  "ubeJobs": [
+    { "job": "R09801", "version": "XJDE0001", "user": "JDEADMIN", "queue": "QBATCH", "submitTick": 1,  "startTick": 2,  "endTick": 8,  "outcome": "Pass", "note": "G/L Post completed normally" },
+    { "job": "R42520", "version": "XJDE0003", "user": "WHSUSER",  "queue": "QPRINT", "submitTick": 2,  "startTick": 3,  "endTick": 7,  "outcome": "Pass", "note": "Print Pick Slips: 36 slips" },
+    { "job": "R31410", "version": "XJDE0002", "user": "MFGUSER",  "queue": "QBATCH", "submitTick": 3,  "startTick": 4,  "endTick": 13, "outcome": "Warn", "note": "Order Processing: 2 orders on hold" },
+    { "job": "R43500", "version": "XJDE0001", "user": "BUYER01",  "queue": "QPRINT", "submitTick": 5,  "startTick": 8,  "endTick": 12, "outcome": "Pass", "note": "PO Print: 14 purchase orders" },
+    { "job": "R3483",  "version": "XJDE0001", "user": "PLANNER",  "queue": "QBATCH", "submitTick": 6,  "startTick": 9,  "endTick": 19, "outcome": "Fail", "note": "MRP ended in error: work center WC-204 missing" },
+    { "job": "R0006P", "version": "XJDE0001", "user": "FINCLERK", "queue": "QBATCH", "submitTick": 10, "startTick": 14, "endTick": 18, "outcome": "Pass", "note": "Business Unit Report: 112 pages" },
+    { "job": "R09801", "version": "ZJDE0002", "user": "FINCLERK", "queue": "QBATCH", "submitTick": 15, "startTick": 19, "endTick": 23, "outcome": "Pass", "note": "G/L Post (intercompany) completed normally" }
+  ],
+  "serverEvents": [
+    { "tick": 4,  "server": "JDEWEB02", "status": "Warn", "detail": "response 3.1 s",  "log": "JDEWEB02: JAS response time 3.1 s (threshold 2 s)", "level": "warn" },
+    { "tick": 7,  "server": "JDEAIS01", "status": "Fail", "detail": "token refresh",   "log": "JDEAIS01: AIS token refresh failed, retrying", "level": "error" },
+    { "tick": 9,  "server": "JDEAIS01", "status": "Pass", "detail": "recovered",       "log": "JDEAIS01: AIS token service recovered", "level": "info" },
+    { "tick": 12, "server": "JDEWEB02", "status": "Pass", "detail": "response 0.8 s",  "log": "JDEWEB02: JAS response time back under threshold", "level": "info" },
+    { "tick": 16, "server": "JDEENT02", "status": "Warn", "detail": "queue backlog",   "log": "JDEENT02: QBATCH backlog above 1 job for 5 minutes", "level": "warn" }
+  ],
+  "metrics": {
+    "aisMs":  [142, 138, 150, 161, 240, 420, 980, 1480, 610, 210, 180, 166, 158, 149, 152, 160, 171, 163, 155, 148, 143, 140, 139, 141],
+    "users":  [78, 81, 84, 88, 90, 93, 95, 94, 92, 96, 99, 103, 105, 104, 101, 98, 97, 95, 93, 90, 88, 86, 84, 83]
+  }
+}

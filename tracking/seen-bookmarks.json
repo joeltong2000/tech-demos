@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "consolemonster",
+      "title": "ConsoleMonster (PowerShell/.NET console rendering)",
+      "url": "https://consolemonster.dev",
+      "app": "apps/consolemonster",
+      "date": "2026-11-09",
+      "notes": "Four pwsh 7 scripts: one-line Show-ConsoleTable from Get-Process, a live Invoke-ConsoleDashboard import run, a Show-ConsoleMenu app with a validated form, and a mock JDE EnterpriseOne server-health dashboard replayed from local JSON (no real JDE connection)."
     }
   ]
 }
