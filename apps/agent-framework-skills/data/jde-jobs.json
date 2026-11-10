@@ -1,0 +1,61 @@
+{
+  "description": "Mock JD Edwards EnterpriseOne 'Work with Submitted Jobs' (WSJ) records. Entirely fake data for the offline demo.",
+  "statusCodes": {
+    "W": "Waiting",
+    "P": "Processing",
+    "D": "Done",
+    "E": "Error",
+    "H": "On Hold"
+  },
+  "jobs": [
+    {
+      "jobNumber": 570212,
+      "reportId": "R42565",
+      "version": "XJDE0001",
+      "description": "Invoice Print",
+      "status": "D",
+      "user": "OPSBOT",
+      "queue": "QBATCH",
+      "host": "JDEBATCH01",
+      "submitted": "2026-11-10T06:15:00Z",
+      "completed": "2026-11-10T06:17:42Z"
+    },
+    {
+      "jobNumber": 570213,
+      "reportId": "R31410",
+      "version": "XJDE0003",
+      "description": "Work Order Processing",
+      "status": "E",
+      "user": "MFGUSER",
+      "queue": "QBATCH",
+      "host": "JDEBATCH01",
+      "submitted": "2026-11-10T06:20:00Z",
+      "completed": "2026-11-10T06:21:05Z",
+      "errorText": "Work order 451882 failed: branch/plant M30 record invalid (error 0002E)."
+    },
+    {
+      "jobNumber": 570214,
+      "reportId": "R09801",
+      "version": "XJDE0002",
+      "description": "General Ledger Post",
+      "status": "P",
+      "user": "FINUSER",
+      "queue": "QBATCH",
+      "host": "JDEBATCH02",
+      "submitted": "2026-11-10T06:25:00Z",
+      "completed": null
+    },
+    {
+      "jobNumber": 570215,
+      "reportId": "R43500",
+      "version": "XJDE0001",
+      "description": "Purchase Order Print",
+      "status": "W",
+      "user": "OPSBOT",
+      "queue": "QPRINT",
+      "host": "JDEBATCH02",
+      "submitted": "2026-11-10T06:30:00Z",
+      "completed": null
+    }
+  ]
+}
