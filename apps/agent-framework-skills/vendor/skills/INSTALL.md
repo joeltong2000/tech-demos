@@ -1,0 +1,1 @@
+Installed via: sparse-checkout of microsoft/agent-framework@beba9219ff2b613170fd57add02094244f4286ce (equivalent to gh skill install microsoft/agent-framework agent-framework-builder-{dotnet,python}@main)

@@ -1,0 +1,8 @@
+[project]
+name = "agent-framework-skills-demo"
+version = "0.1.0"
+description = "Offline JDE ops-helper agents built on Microsoft Agent Framework (baseline vs. skill-guided)"
+requires-python = ">=3.11"
+dependencies = [
+    "agent-framework-core==1.25.0",
+]

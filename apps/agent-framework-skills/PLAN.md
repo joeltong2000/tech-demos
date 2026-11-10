@@ -28,15 +28,15 @@ Python baseline, Python skill-guided — and read `COMPARISON.md` for the concre
 1. [x] Create `apps/agent-framework-skills/` and this plan.
 2. [x] Verify real package names/versions on NuGet and PyPI; confirm skill names and location in
    `microsoft/agent-framework` (`skills/agent-framework-builder-{dotnet,python}`).
-3. [ ] Write baseline agents (.NET + Python) from generic knowledge only; record every error hit.
-4. [ ] Vendor the two official skills at a pinned commit into `vendor/skills/` (the repo-level
+3. [x] Write baseline agents (.NET + Python) from generic knowledge only; record every error hit.
+4. [x] Vendor the two official skills at a pinned commit into `vendor/skills/` (the repo-level
    equivalent of `gh skill install microsoft/agent-framework agent-framework-builder-dotnet@main`).
-5. [ ] Read the skills; write the skill-guided agents following their guidance.
-6. [ ] Shared mock data: `data/jde-jobs.json` with fake JD Edwards batch-job records; tools
+5. [x] Read the skills; write the skill-guided agents following their guidance.
+6. [x] Shared mock data: `data/jde-jobs.json` with fake JD Edwards batch-job records; tools
    `get_job_status` + `list_active_jobs` in both languages.
-7. [ ] Verify all four variants build and run deterministically offline.
-8. [ ] Write `README.md`, `COMPARISON.md`, `.env.example`; add tracking entry.
-9. [ ] Capture validation artifacts: screenshot + terminal recording (mp4) of both agents running.
+7. [x] Verify all four variants build and run deterministically offline.
+8. [x] Write `README.md`, `COMPARISON.md`, `.env.example`; add tracking entry.
+9. [x] Capture validation artifacts: screenshot + terminal recording (mp4) of both agents running.
 10. [ ] Open PR with artifacts linked.
 
 ## 4. Success criteria

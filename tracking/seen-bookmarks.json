@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "agent-framework-builder-skills",
+      "title": "Microsoft Agent Framework skills for .NET and Python",
+      "url": "https://devblogs.microsoft.com/agent-framework/give-your-coding-agent-a-head-start-with-microsoft-agent-framework-skills-for-net-and-python/",
+      "app": "apps/agent-framework-skills",
+      "date": "2026-11-10",
+      "notes": "Offline with-vs-without comparison of official builder skills (agent-framework-builder-dotnet/python) building the same JDE ops-helper tool-calling agent in C# and Python."
     }
   ]
 }
