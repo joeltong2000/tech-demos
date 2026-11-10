@@ -1,0 +1,67 @@
+======= Microsoft Agent Framework skills demo (offline) =======
+
+=== .NET baseline (without skill) ===
+Data: /agent/repos/tech-demos/apps/agent-framework-skills/data/jde-jobs.json
+
+User: What is the status of job 570213? Include the report id and any error text.
+
+[assistant]
+  tool_call GetJobStatus({"jobNumber":570213})
+[tool]
+  tool_result call_baseline_1: {"jobNumber":570213,"reportId":"R31410","version":"XJDE0003","description":"Work Order Processing","status":"E","statusLabel":"Error","user":"MFGUSER","queue":"QBATCH","errorText":"Work order 451882 failed: branch/plant M30 record invalid (error 0002E)."}
+[assistant]
+  Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+Final: Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+----------------------------------------------------------------
+
+=== .NET with-skill (agent-framework-builder-dotnet) ===
+Data: /agent/repos/tech-demos/apps/agent-framework-skills/data/jde-jobs.json
+Chat client: Microsoft.Extensions.AI.ChatClientMetadata
+
+User: What is the status of job 570213? Include the report id and any error text.
+
+[assistant]
+  tool_call GetJobStatus({"jobNumber":570213})
+[tool]
+  tool_result call_skill_1: {"jobNumber":570213,"reportId":"R31410","version":"XJDE0003","description":"Work Order Processing","status":"E","statusLabel":"Error","user":"MFGUSER","queue":"QBATCH","errorText":"Work order 451882 failed: branch/plant M30 record invalid (error 0002E)."}
+[assistant]
+  Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+Final: Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+----------------------------------------------------------------
+
+=== Python baseline (without skill) ===
+Data: /agent/repos/tech-demos/apps/agent-framework-skills/data/jde-jobs.json
+
+User: What is the status of job 570213? Include the report id and any error text.
+
+[assistant]
+  tool_call get_job_status({'job_number': 570213})
+[tool]
+  tool_result call_baseline_1: {"jobNumber": 570213, "reportId": "R31410", "version": "XJDE0003", "description": "Work Order Processing", "status": "E", "statusLabel": "Error", "user": "MFGUSER", "queue": "QBATCH", "errorText": "Work order 451882 failed: branch/plant M30 record invalid (error 0002E)."}
+[assistant]
+  Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+Final: Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+----------------------------------------------------------------
+
+=== Python with-skill (agent-framework-builder-python) ===
+Data: /agent/repos/tech-demos/apps/agent-framework-skills/data/jde-jobs.json
+Chat client: ScriptedOpsChatClient
+
+User: What is the status of job 570213? Include the report id and any error text.
+
+[assistant]
+  tool_call get_job_status({'job_number': 570213})
+[tool]
+  tool_result call_skill_1: {"jobNumber": 570213, "reportId": "R31410", "version": "XJDE0003", "description": "Work Order Processing", "status": "E", "statusLabel": "Error", "user": "MFGUSER", "queue": "QBATCH", "errorText": "Work order 451882 failed: branch/plant M30 record invalid (error 0002E)."}
+[assistant]
+  Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+Final: Job 570213 (R31410 / Work Order Processing) is in Error (E). errorText: Work order 451882 failed: branch/plant M30 record invalid (error 0002E).
+
+======= done =======
