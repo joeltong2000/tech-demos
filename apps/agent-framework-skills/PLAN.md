@@ -37,7 +37,7 @@ Python baseline, Python skill-guided — and read `COMPARISON.md` for the concre
 7. [x] Verify all four variants build and run deterministically offline.
 8. [x] Write `README.md`, `COMPARISON.md`, `.env.example`; add tracking entry.
 9. [x] Capture validation artifacts: screenshot + terminal recording (mp4) of both agents running.
-10. [ ] Open PR with artifacts linked.
+10. [x] Open PR with artifacts linked (https://github.com/joeltong2000/tech-demos/pull/7).
 
 ## 4. Success criteria
 
