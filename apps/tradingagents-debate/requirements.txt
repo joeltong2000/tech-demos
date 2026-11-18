@@ -1,0 +1,9 @@
+# Pinned runtime deps for plain pip installs (Python 3.11+)
+colorama==0.4.6
+
+# Optional live LLM path (off by default):
+# openai==1.54.0
+# python-dotenv==1.0.1
+
+# Dev / tests
+pytest==8.3.3

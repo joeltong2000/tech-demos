@@ -15,6 +15,14 @@
       "app": "apps/oracle-mcp-jde-orchestrator",
       "date": "2026-09-30",
       "notes": "MCP stdio server (Bun + official SDK) that discovers JDE orchestrations from an AIS layer and exposes them 1:1 as MCP tools; offline mock AIS with in-memory E1 tables, web inspector UI showing raw JSON-RPC traffic."
+    },
+    {
+      "id": "tradingagents-debate",
+      "title": "TradingAgents multi-agent trading debate",
+      "url": "https://x.com/gusik4ever/status/2116504471907791240",
+      "app": "apps/tradingagents-debate",
+      "date": "2026-11-18",
+      "notes": "Offline Python demo of TradingAgents-style roles (analysts → bull/bear → trader → risk) with bundled mock market data, colored transcript, and $2k paper ledger. Upstream: https://github.com/TauricResearch/TradingAgents"
     }
   ]
 }
